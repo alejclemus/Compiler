@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Compiler {
     public static void main(String[] args) {
-        System.out.println("Argument count: " + args.length);
         int argCount = args.length;
         String filename="";
         String param=""; //[option]
