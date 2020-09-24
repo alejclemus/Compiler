@@ -31,91 +31,111 @@ public class DScanner {
     }
 
     public void TokenAssignment( List<String> toMatch){
+        //hex literal
+    Pattern a = Pattern.compile("0[x|X][\\w|\\d]+ ");
+    // decimal literal
+    Pattern b = Pattern.compile("\\d+");
+    //char literal
+    Pattern c = Pattern.compile("\\w");
+    // string literal
+    Pattern d = Pattern.compile("(\\w|_)(\\d|\\w|_)*");
+
 
         for(int i =0 ; i< toMatch.size(); i++ ){
+            Matcher e = a.matcher(toMatch.get(i));
+            Matcher f = b.matcher(toMatch.get(i));
+            Matcher g = c.matcher(toMatch.get(i));
+            Matcher h = d.matcher(toMatch.get(i));
+
+            boolean j = e.matches();// hex literal
+            boolean k = f.matches();// decimal literal
+            boolean l = g.matches();// char literal
+            boolean m = h.matches();// string literal
+
 
             if(!toMatch.get(i).equals("\n") || !toMatch.get(i).equals("\t")){
                 if(toMatch.get(i).equals("true")){
 
                 }else if (toMatch.get(i).equals("false")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("=")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(j){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(k){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(l){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(m){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("+=")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("-=")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("int")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("boolean")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("callout")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("void")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("if")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("else")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("for")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("return")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("break")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("continue")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("(")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals(")")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("[")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("]")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("{")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("}")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("!")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals(";")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("*")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("+")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("-")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("%")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("/")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("||")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("&&")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("<")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals(">")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("<=")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals(">+")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("==")){
 
-                }else if(toMatch.get(i).equals("")){
+                }else if(toMatch.get(i).equals("!=")){
 
                 }else{
+                    //main
 
                 }
 
