@@ -224,9 +224,13 @@ public class DScanner {
                     Tokentype = "bool_literal";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("!=")){
+                    Token = "false";
+                    Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else{
                     Token = "main";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }
                 count +=1;
 
