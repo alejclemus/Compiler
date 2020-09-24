@@ -128,108 +128,108 @@ public class DScanner {
                     Tokentype = "bool_literal";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("for")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "kw_for";
+                    Tokentype = "reserved_word";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("return")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "kw_return";
+                    Tokentype = "reserved_word";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("break")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "kw_break";
+                    Tokentype = "reserved_word";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("continue")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "kw_continue";
+                    Tokentype = "reserved_word";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("(")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "open_parenthes";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(")")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "close_parenthes";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("[")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "opensqr_bracket";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("]")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "closesqr_bracket";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("{")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "open_bracket";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("}")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "close_bracket";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("!")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "neg";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(";")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "semicolon";
+                    Tokentype = "decaf_grammar";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("*")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "mult";
+                    Tokentype = "arith_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("+")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "plus";
+                    Tokentype = "arith_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("-")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "subtr";
+                    Tokentype = "arith_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("%")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "modular";
+                    Tokentype = "arith_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("/")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "division";
+                    Tokentype = "arith_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("||")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "or";
+                    Tokentype = "cond_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("&&")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "and";
+                    Tokentype = "cond_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("<")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "less_than";
+                    Tokentype = "rel_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(">")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "great_than";
+                    Tokentype = "rel_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("<=")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "less_equals";
+                    Tokentype = "rel_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
-                }else if(toMatch.get(i).equals(">+")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                }else if(toMatch.get(i).equals(">=")){
+                    Token = "greater_equals";
+                    Tokentype = "rel_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("==")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "equals";
+                    Tokentype = "eq_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("!=")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "not_equals";
+                    Tokentype = "eq_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else{
                     Token = "main";
-                    Tokentype = "bool_literal";
+                    Tokentype = "main";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }
                 count +=1;
