@@ -40,6 +40,14 @@ public class DScanner {
     // string literal
     Pattern d = Pattern.compile("(\\w|_)(\\d|\\w|_)*");
 
+    // count line number
+        int count = 0;
+
+        // Token
+
+        String Token = "";
+        String Tokentype ="";
+
 
         for(int i =0 ; i< toMatch.size(); i++ ){
             Matcher e = a.matcher(toMatch.get(i));
@@ -55,89 +63,131 @@ public class DScanner {
 
             if(!toMatch.get(i).equals("\n") || !toMatch.get(i).equals("\t")){
                 if(toMatch.get(i).equals("true")){
+                    Token = "true";
+                    Tokentype = "bool_literal";
 
                 }else if (toMatch.get(i).equals("false")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("=")){
-
+                    Token = "equals";
+                    Tokentype = "assign_op";
                 }else if(j){ // hex literal
-
+                    Token = "";
+                    Tokentype = "bool_literal";
                 }else if(k){ // decimal literal
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(l){ // char literal
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(m){ // string literal
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("+=")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("-=")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("int")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("boolean")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("callout")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("void")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("if")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("else")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("for")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("return")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("break")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("continue")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("(")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals(")")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("[")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("]")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("{")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("}")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("!")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals(";")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("*")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("+")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("-")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("%")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("/")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("||")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("&&")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("<")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals(">")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("<=")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals(">+")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("==")){
-
+                    Token = "false";
+                    Tokentype = "bool_literal";
                 }else if(toMatch.get(i).equals("!=")){
 
                 }else{
-                    //main
-
+                    Token = "main";
+                    Tokentype = "bool_literal";
                 }
+                count +=1;
+
 
 
             }
