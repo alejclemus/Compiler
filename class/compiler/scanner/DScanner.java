@@ -21,13 +21,109 @@ public class DScanner {
         //System.out.println(matcher.toString());
 
         List<String> allMatches = new ArrayList<String>();
-        Matcher m = Pattern.compile("Class Program|\\{| }|\\[|]|,|;|=|-|\\+|-=|!|<|>|<=|>=|==|!=|\\+=|\\*|/|&&|\\|\\||%|//|\"|\'|\\\\|\'|\"|\n|\t|\\(|\\)|main|int|boolran|if|for|return|break|continue|callout|true|false|void|else|0[x|X][\\w|\\d]+|\\d+|[\\w][\\w\\d_]+|[\\W]+ | \\w").matcher(program);
+        Matcher m = Pattern.compile("Class Program|\\{| }|\\[|]|,|;|=|-|\\+|-=|!|<|>|<=|>=|==|!=|\\+=|\\*|/|&&|\\|\\||%|//|\"|\'|\\\\|\'|\"|\n|\t|\\(|\\)|main|int|boolean|if|for|return|break|continue|callout|true|false|void|else|0[x|X][\\w|\\d]+|\\d+|[\\w][\\w\\d_]+|[\\W]+ | \\w").matcher(program);
         while (m.find()) {
             allMatches.add(m.group());
         }
 
         System.out.println(allMatches);
         return allMatches;
+    }
+
+    public void TokenAssignment( List<String> toMatch){
+
+        for(int i =0 ; i< toMatch.size(); i++ ){
+
+            if(!toMatch.get(i).equals("\n") || !toMatch.get(i).equals("\t")){
+                if(toMatch.get(i).equals("true")){
+
+                }else if (toMatch.get(i).equals("false")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else if(toMatch.get(i).equals("")){
+
+                }else{
+
+                }
+
+
+            }
+
+        }
+
     }
 
 }
