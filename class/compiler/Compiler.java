@@ -80,6 +80,7 @@ public class Compiler {
         }
 
         String Scanstring=readFile(filename);
+        DScanner scanner = new DScanner();
 
         switch (param){
             case "-o":
@@ -89,7 +90,7 @@ public class Compiler {
                 switch (paramflag){
                     case "scan":
                         System.out.println("stage: scanning");
-                        //DScanner(Scanstring);
+                        scanner.Regex(Scanstring);
                         break;
                     case "parse":
                         System.out.println("stage: scanning");
