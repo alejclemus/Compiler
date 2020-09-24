@@ -90,7 +90,8 @@ public class Compiler {
                 switch (paramflag){
                     case "scan":
                         System.out.println("stage: scanning");
-                        scanner.Regex(Scanstring);
+                        scanner.TokenAssignment(scanner.Regex(Scanstring));
+
                         break;
                     case "parse":
                         System.out.println("stage: scanning");
