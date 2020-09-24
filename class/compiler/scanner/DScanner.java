@@ -5,6 +5,7 @@ import java.util.Scanner; // Import the Scanner class to read text files
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.regex.*;
+import scanner.Token;
 
 
 public class DScanner {
@@ -49,6 +50,8 @@ public class DScanner {
         String Tokentype ="";
 
 
+        Token tokenize [] =new Token[40];
+
         for(int i =0 ; i< toMatch.size(); i++ ){
             Matcher e = a.matcher(toMatch.get(i));
             Matcher f = b.matcher(toMatch.get(i));
@@ -63,135 +66,177 @@ public class DScanner {
 
             if(!toMatch.get(i).equals("\n") || !toMatch.get(i).equals("\t")){
                 if(toMatch.get(i).equals("true")){
+
                     Token = "true";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
 
                 }else if (toMatch.get(i).equals("false")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("=")){
                     Token = "equals";
                     Tokentype = "assign_op";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(j){ // hex literal
                     Token = "";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(k){ // decimal literal
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(l){ // char literal
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(m){ // string literal
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("+=")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("-=")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("int")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("boolean")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("callout")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("void")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("if")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("else")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("for")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("return")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("break")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("continue")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("(")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(")")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("[")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("]")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("{")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("}")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("!")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(";")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("*")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("+")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("-")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("%")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("/")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("||")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("&&")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("<")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(">")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("<=")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals(">+")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("==")){
                     Token = "false";
                     Tokentype = "bool_literal";
+                    tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("!=")){
-
                 }else{
                     Token = "main";
                     Tokentype = "bool_literal";
                 }
                 count +=1;
 
-
-
             }
 
+        }
+
+        for(int i = 0; i<tokenize.length; i++) {
+            tokenize[i].display();
+            System.out.println(" ");
         }
 
     }
