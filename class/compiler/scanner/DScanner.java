@@ -60,13 +60,13 @@ public class DScanner {
 
                 }else if(toMatch.get(i).equals("=")){
 
-                }else if(j){
+                }else if(j){ // hex literal
 
-                }else if(k){
+                }else if(k){ // decimal literal
 
-                }else if(l){
+                }else if(l){ // char literal
 
-                }else if(m){
+                }else if(m){ // string literal
 
                 }else if(toMatch.get(i).equals("+=")){
 
