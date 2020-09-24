@@ -73,59 +73,59 @@ public class DScanner {
 
                 }else if (toMatch.get(i).equals("false")){
                     Token = "false";
-                    Tokentype = "bool_literal";
+                    Tokentype = "statement";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("=")){
                     Token = "equals";
                     Tokentype = "assign_op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(j){ // hex literal
-                    Token = "";
-                    Tokentype = "bool_literal";
+                    Token = "hex";
+                    Tokentype = "hex literal"; //DUDA
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(k){ // decimal literal
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "decimal";
+                    Tokentype = "decimal literal";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(l){ // char literal
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "char";
+                    Tokentype = "char literal";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(m){ // string literal
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "string";
+                    Tokentype = "string literal";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("+=")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "plusEqual";
+                    Tokentype = "assign op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("-=")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "minusEqual";
+                    Tokentype = "assign op";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("int")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "int";
+                    Tokentype = "type";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("boolean")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "bool";
+                    Tokentype = "type";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("callout")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "callout_call";
+                    Tokentype = "method call";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("void")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "void_decl";
+                    Tokentype = "method decl";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("if")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "if_statement";
+                    Tokentype = "statement";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("else")){
-                    Token = "false";
-                    Tokentype = "bool_literal";
+                    Token = "else_statement";
+                    Tokentype = "statement";
                     tokenize[count]=new Token(Token, Tokentype,toMatch.get(i),count);
                 }else if(toMatch.get(i).equals("for")){
                     Token = "kw_for";
