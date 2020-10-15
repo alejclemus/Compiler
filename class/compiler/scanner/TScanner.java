@@ -1,6 +1,4 @@
 package scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,13 +59,13 @@ public class TScanner {
                     if (state == 5) {
                         return "char_literal";
                     } else {
-                        return "error char";
+                        return "error";
                     }
                 } else if (type == 2) {
                     if (state == 4) {
                         return "string_literal";
                     } else {
-                        return "error string";
+                        return "error";
                     }
                 } else if (type == 3) {
                     if (state == 2 || state == 3) {
@@ -75,13 +73,13 @@ public class TScanner {
                     } else if (state == 5) {
                         return "hex";
                     } else {
-                        return " error hex or decimal";
+                        return "error";
                     }
                 } else if (type == 4) {
                     if (state == 2) {
                         return "identidfier";
                     } else {
-                        return "error identifier";
+                        return "error";
                     }
                 }
             } else {

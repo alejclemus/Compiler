@@ -1,4 +1,4 @@
-import scanner.DScanner;
+import scanner.TScanner;
 
 import java.util.Scanner;
 import java.io.File;  // Import the File class
@@ -6,30 +6,25 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 
 public class Compiler {
     public String filename;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         String param=""; //[option]
         String paramflag=""; //[option] <outname>, <stage>, etc.
         CLI(args,param,paramflag);
 
     }
 
-    public static String readFile(String filename){
-        String FinalString="";
-        try {
+
+    public static Scanner readFile(String filename) throws FileNotFoundException{
+
             File stringFile = new File(filename);
-            Scanner in = new Scanner(stringFile);
-            while (in.hasNextLine()) {
-                FinalString += in.nextLine();
-            }
-            in.close();
-        } catch (FileNotFoundException error) {
-            System.out.println("An error occurred: ");
-            error.printStackTrace();
-        }
-        return FinalString;
+            Scanner out = new Scanner(stringFile);
+
+
+
+        return out;
     }
 
-    static void CLI(String[] args, String param, String paramflag){
+    static void CLI(String[] args, String param, String paramflag) throws FileNotFoundException {
         String filename="";
         int argCount = args.length;
         if (argCount==0) {
@@ -79,8 +74,8 @@ public class Compiler {
             }
         }
 
-        String Scanstring=readFile(filename);
-        DScanner scanner = new DScanner();
+        Scanner Scanstring= readFile(filename);
+        TScanner scanner = new TScanner();
 
         switch (param){
             case "-o":
@@ -90,7 +85,7 @@ public class Compiler {
                 switch (paramflag){
                     case "scan":
                         System.out.println("stage: scanning");
-                        scanner.TokenAssignment(scanner.Regex(Scanstring));
+                        TScanner.MainScan(readFile());
 
                         break;
                     case "parse":
