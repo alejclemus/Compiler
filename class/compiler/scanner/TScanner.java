@@ -92,7 +92,40 @@ public class TScanner {
         return "error";
     }
 
+public static String AutomataToken(char[][] alpha, int[][][] automaton, String token, Token Ntoken){
+        String Tokenn = token;
+        Ntoken.Tokentype = Tokenn;
 
+        if(keywords(Tokenn)){
+            Ntoken.Token = "keyword";
+        } else if (brackets(Tokenn)){
+            Ntoken.Token = "bracket";
+        }else if (symbols(Tokenn)){
+            Ntoken.Token ="operator";
+        }else{
+           char excl[]= Tokenn.toCharArray();
+           if(excl[0]=='\''){
+               Ntoken.Token = AutomataVerification(excl, automaton[3], 1, alpha[2]);
+           }else if(excl[0] == '\"'){
+               Ntoken.Token = AutomataVerification(excl, automaton[2], 2, alpha[2]);
+            } else if( excl[0]=='0'||excl[0]=='1'||excl[0]=='2'||excl[0]=='3'||excl[0]=='4'||excl[0]=='5'||excl[0]=='6'||excl[0]=='7'||excl[0]=='8'||excl[0]=='9'){
+               Ntoken.Token = AutomataVerification(excl, automaton[0], 3, alpha[0]);
+           } else{
+               Ntoken.Token = AutomataVerification(excl, automaton[1], 4, alpha[1]);
+           }
+        }
+return Ntoken.Token;
+}
+
+
+public static ArrayList MainScan (Scanner in){
+      ArrayList<Token> TokenStream = new ArrayList<>();
+      //Alfabetos
+    char[] hexNum={ '0','x','-','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','A','B','C','D','E','F'};
+    char[] ids={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    char[] strings={' ', '!','#', '$', '%', '&','(',')','*','+',',','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~','\\','"','\'',};// check n t later if it doesn't work
+        return TokenStream;
+}
 
 
 
