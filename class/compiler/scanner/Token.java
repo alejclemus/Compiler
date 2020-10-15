@@ -5,7 +5,7 @@ public class Token {
     public String Tokentype;
 
 
-    public Token(String Token, String Tokentype, String getToken, int line){
+    public Token(String Token, String Tokentype){
         this.Token = Token;
         this.Tokentype = Tokentype;
 

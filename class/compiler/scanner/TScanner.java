@@ -123,7 +123,7 @@ public static ArrayList MainScan (Scanner in){
       ArrayList<String> lexemas = new ArrayList<String>();
       ArrayList<String> errores = new ArrayList<String>();
       int errorLine = 1;
-      int errorCol = 1;
+      int errorColumn = 1;
       String cToken ="";
       String error ="";
 
@@ -156,11 +156,97 @@ public static ArrayList MainScan (Scanner in){
             { 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
     int[][][] auto ={numaut,identaut,stringaut,characaut};
 
+    // separacion linea por linea
     while(in.hasNextLine()){
-
+        String fileLine= in.nextLine();
+        // recorrer linea por linea
+        for (int i = 0; i <fileLine.length() ; i++) {
+            char toAnalyze = fileLine.charAt(i);
+            char upNext;
+            error = "Error en la linea "+Integer.toString(errorLine);
+            if( i != (fileLine.length()-1)){
+                upNext = fileLine.charAt(i+1);
+            }else{
+                upNext ='$';
+                errorColumn = 0;
+            }
+            if(toAnalyze == '/' && upNext =='/'){
+                errorColumn=0;
+                break;
+            }
+            if(toAnalyze != ' '&& toAnalyze!= '\t'){
+                cToken +=toAnalyze;
+                if(upNext == ' '|| upNext == '$'){
+                    lexemas.add(cToken);
+                    errores.add(error);
+                    cToken= "";
+                }
+            }
+            errorColumn += 1;
+        }
+        errorLine+= 1;
     }
 
+    // analizar lexemas
+    for (int i = 0; i < lexemas.size() ; i++) {
+        Token tempToken = new Token("", "");
+        AutomataToken(alphab, auto, lexemas.get(i), tempToken);
+        boolean lexm = true;
+        String possible ="";
+        String possibleX="";
+        if(lexemas.get(i).charAt(0)=='"'){
+            for (int j = i; j < lexemas.size(); j++) {
+                String iToken = lexemas.get(j);
+                possible += iToken;
+                possibleX += iToken+" ";
 
+                if(iToken.charAt(iToken.length()-1)=='"'){
+                    Token temp = new Token("", "");
+                    AutomataToken(alphab, auto, possible, temp);
+                    if(!temp.Token.equals("error")){
+                        tempToken.Token = temp.Token;
+                        tempToken.Tokentype= possibleX;
+                        i=j;
+                    }
+                    break;
+                }
+
+            }
+        }
+        if(tempToken.Token == "error"){
+            String pos="";
+            String poss="";
+            for (int j = 0; j <tempToken.Tokentype.length() ; j++) {
+                pos += tempToken.Tokentype.charAt(j);
+                Token tok3 = new Token("", "");
+                AutomataToken(alphab, auto, pos, tok3);
+
+                if(tok3.Token != "error"){
+                    if( j != tempToken.Tokentype.length()-1){
+                        poss = pos + tempToken.Tokentype.charAt(j+1);
+                    } else {
+                        poss = pos;
+                    }
+                    Token token4 = new Token ("", "");
+                    AutomataToken(alphab, auto,poss, token4);
+                    if(token4.Token =="error"){
+                        TokenStream.add(tok3);
+                        pos="";
+                    }
+                    lexm = false;
+                }else{
+                    lexm = true;
+                }
+            }
+        }
+        if(lexm){
+            TokenStream.add(tempToken);
+            if(tempToken.Token == "error"){
+                System.out.println(errores.get(i));
+            }
+        }
+
+    }
         return TokenStream;
 }
 
