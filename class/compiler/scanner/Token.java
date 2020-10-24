@@ -1,25 +1,25 @@
 package scanner;
 
 public class Token {
-    public String Token;
-    public String Tokentype;
+    public String tipo;
+    public String valor;
 
 
-    public Token(String Token, String Tokentype){
-        this.Token = Token;
-        this.Tokentype = Tokentype;
+    public Token(String tipo, String Tokentype){
+        this.tipo = tipo;
+        this.valor = Tokentype;
 
     }
-    public void setToken(String Token){
-        this.Token=Token;
+    public void setTipo(String Token){
+        this.tipo =Token;
     }
-    public void setTokentype(String Tokentype){
-        this.Tokentype=Tokentype;
+    public void setValor(String Tokentype){
+        this.valor =Tokentype;
     }
 
     public void display(){
-        System.out.println(this.Token);
-        System.out.println(this.Tokentype);
+        System.out.println(this.tipo);
+        System.out.println(this.valor);
 
     }
 

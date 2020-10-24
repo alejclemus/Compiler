@@ -10,7 +10,7 @@ public class Parser {
     static void shift(Stack st, Stack to, Token token, int a) { //Mete un token al stack de tokens y un estado al stack de estados
         st.push(a);
         System.out.println("States: " + st);
-        String tokenItem= token.Token;
+        String tokenItem= token.tipo;
         to.push(tokenItem);
         System.out.println("Tokens: " + to);
     }
@@ -69,7 +69,7 @@ public class Parser {
 
         for (int i = 0; i < grammar.length; i++){
             for (int j = 0; j < grammar[i].length; j++){
-                if (inputSymbols[j]==listTokens.get(tokensCounter).Token){
+                if (inputSymbols[j]==listTokens.get(tokensCounter).tipo){
                     String expression=grammar[i][j];
 
                     String[] expressionarr = expression.split(" ");

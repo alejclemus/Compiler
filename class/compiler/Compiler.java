@@ -1,4 +1,4 @@
-import scanner.TScanner;
+import scanner.RScanner;
 
 import java.util.Scanner;
 import java.io.File;  // Import the File class
@@ -75,7 +75,7 @@ public class Compiler {
         }
 
         Scanner Scanstring= readFile(filename);
-        TScanner scanner = new TScanner();
+        RScanner scanner = new RScanner();
 
         switch (param){
             case "-o":
@@ -85,7 +85,7 @@ public class Compiler {
                 switch (paramflag){
                     case "scan":
                         System.out.println("stage: scanning");
-                        TScanner.MainScan(readFile());
+                        RScanner.MainScan(readFile(filename));
 
                         break;
                     case "parse":
