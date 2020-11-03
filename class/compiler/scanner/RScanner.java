@@ -1,4 +1,7 @@
-package scanner;
+package compiler.scanner;
+
+import compiler.scanner.Token;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,9 +36,9 @@ public class RScanner {
         }
     }
 
-    
 
-    
+
+
     public static String AutomataVerification(int automata[][], int type, char[] tokens, char[] a) {
         int state = 1;
         boolean A = false;
@@ -187,7 +190,7 @@ public class RScanner {
             }
             linee += 1;
         }
-        
+
         for (int i = 0; i < lexem.size(); i++) {
             Token token1 = new Token("", "");
             AutomataToken( lexem.get(i), token1, automatas, alpha);
@@ -200,7 +203,7 @@ public class RScanner {
                     String token2 = lexem.get(j);
                     pos += token2;
                     posx += token2 + " ";
-                    
+
                     if (token2.charAt(token2.length() - 1) == '"') {
                         Token token3 = new Token("", "");
                         AutomataToken( pos, token3, automatas, alpha);
@@ -233,7 +236,7 @@ public class RScanner {
 
                         Token token5 = new Token("", "");
                         AutomataToken( sb, token5 , automatas, alpha);
-                        
+
                         if (token5.tipo.equals("error")) {
                             stream.add(token4);
                             System.out.println('"' + token4.tipo + ", " + token4.valor + '"');

@@ -1,5 +1,6 @@
-import scanner.RScanner;
+package compiler;
 
+import compiler.scanner.RScanner;
 import java.util.Scanner;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
@@ -13,11 +14,10 @@ public class Compiler {
 
     }
 
-
     public static Scanner readFile(String filename) throws FileNotFoundException{
 
-            File stringFile = new File(filename);
-            Scanner out = new Scanner(stringFile);
+        File stringFile = new File(filename);
+        Scanner out = new Scanner(stringFile);
 
 
 
@@ -136,28 +136,27 @@ public class Compiler {
         }
     }
 
-
     static void CLImenu() {
-            System.out.println("Usage: java Compiler <filename> [option]\n"
-                    +"Possible options include:\n"+
-                    "-o <outname>\n" +
-                    "-target <stage>\n" +
-                    "\t scan" +
-                    "\t\t parse" +
-                    "\t\t ast" +
-                    "\t\t semantic" +
-                    "\t\t irt" +
-                    "\t\t codegen\n" +
-                    "-opt <opt_stage>\n" +
-                    "\t constant" +
-                    "\t\t algebraic\n" +
-                    "-debug <stage>\n You can add more than one stage with ':'\n" +
-                    "\t scan" +
-                    "\t\t parse" +
-                    "\t\t ast" +
-                    "\t\t semantic" +
-                    "\t\t irt" +
-                    "\t\t codegen\n");
+        System.out.println("Usage: java Compiler <filename> [option]\n"
+                +"Possible options include:\n"+
+                "-o <outname>\n" +
+                "-target <stage>\n" +
+                "\t scan" +
+                "\t\t parse" +
+                "\t\t ast" +
+                "\t\t semantic" +
+                "\t\t irt" +
+                "\t\t codegen\n" +
+                "-opt <opt_stage>\n" +
+                "\t constant" +
+                "\t\t algebraic\n" +
+                "-debug <stage>\n You can add more than one stage with ':'\n" +
+                "\t scan" +
+                "\t\t parse" +
+                "\t\t ast" +
+                "\t\t semantic" +
+                "\t\t irt" +
+                "\t\t codegen\n");
     }
 }
 
