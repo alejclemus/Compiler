@@ -1,4 +1,4 @@
-package compiler.scanner;
+package scanner;
 
 public class Token {
         public String tipo;

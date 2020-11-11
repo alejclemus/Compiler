@@ -1,1 +1,20 @@
+class Program
+{
 
+    int main (int hola,int adios, int talvez)
+    {
+        int i, hello,otro,otromas;
+        boolean boli;
+
+	for i = 0,i < 25
+        {
+            if (true) {
+                boolean hello2;
+                hello = 78;
+                break;
+            }
+        }
+        callout("\tThis is my program!\n");
+
+    }
+}

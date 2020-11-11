@@ -1,4 +1,4 @@
-package Semantic;
+package semantic;
 
 public class Block {
 }

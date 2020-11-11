@@ -1,4 +1,4 @@
-package compiler.parser;
+package parser;
 import javax.swing.tree.TreeNode;
 import java.util.Iterator;
 import java.util.List;
