@@ -77,16 +77,16 @@ public class RScanner {
 
             } else if (type == 3) {
                 if (state == 3 || state == 2) {
-                    return "decimal";
+                    return "literal";
                 } else if (state == 5) {
-                    return "hexadecimal";
+                    return "literal";
                 } else {
                     return "error";
                 }
 
             } else if (type == 4) {
                 if (state == 2) {
-                    return "assignation";
+                    return "id";
                 } else {
                     return "error";
                 }
@@ -106,7 +106,7 @@ public class RScanner {
         if (keywords(token1)) {
             nextToken.tipo = "Keyword";
         } else if (symbols(token1)) {
-            nextToken.tipo = "Operator";
+            nextToken.tipo = "operator";
         } else if (brackets(token1)) {
             nextToken.tipo = "Bracket";
         } else {
@@ -239,7 +239,7 @@ public class RScanner {
 
                         if (token5.tipo.equals("error")) {
                             stream.add(token4);
-                            System.out.println('"' + token4.tipo + ", " + token4.valor + '"');
+                            //System.out.println('"' + token4.tipo + ", " + token4.valor + '"');
                             sa = "";
                         }
                         lexm = false;
@@ -251,7 +251,7 @@ public class RScanner {
 
             if (lexm) {
                 stream.add(token1);
-                System.out.println('"' + token1.tipo + ", " + token1.valor + '"');
+                //System.out.println('"' + token1.tipo + ", " + token1.valor + '"');
                 if (token1.tipo.equals("error")) {
                     System.out.println(errorList.get(i));
                 }
@@ -279,7 +279,10 @@ public class RScanner {
             } else if (toCorrect.valor.equals("program")) {
                 toCorrect.tipo = "program";
                 newTokenStream.add(toCorrect);
-            } else if (toCorrect.valor.equals("}")) {
+            }  else if (toCorrect.valor.equals("void")) {
+                toCorrect.tipo = "void";
+                newTokenStream.add(toCorrect);
+            }else if (toCorrect.valor.equals("}")) {
                 toCorrect.tipo = "}";
                 newTokenStream.add(toCorrect);
             } else if (toCorrect.valor.equals("{")) {
@@ -293,6 +296,9 @@ public class RScanner {
                 newTokenStream.add(toCorrect);
             } else if (toCorrect.valor.equals(",")) {
                 toCorrect.tipo = ",";
+                newTokenStream.add(toCorrect);
+            } else if (toCorrect.valor.equals(";")) {
+                toCorrect.tipo = ";";
                 newTokenStream.add(toCorrect);
             } else if (toCorrect.valor.equals(")")) {
                 toCorrect.tipo = ")";
@@ -324,6 +330,21 @@ public class RScanner {
             } else if (toCorrect.valor.equals("=") || toCorrect.valor.equals("+=") || toCorrect.valor.equals("-=")) {
                 toCorrect.tipo = "assignation";
                 newTokenStream.add(toCorrect);
+            }else if (toCorrect.valor.equals("true") || toCorrect.valor.equals("false")) {
+                toCorrect.tipo = "literal";
+                newTokenStream.add(toCorrect);
+            }else if (toCorrect.valor.equals("callout")) {
+                toCorrect.tipo = "callout";
+                newTokenStream.add(toCorrect);
+            }else if(toCorrect.valor.equals("a") || toCorrect.valor.equals("b") ||toCorrect.valor.equals("c") || toCorrect.valor.equals("d")
+                    ||toCorrect.valor.equals("e") || toCorrect.valor.equals("f") ||toCorrect.valor.equals("g") || toCorrect.valor.equals("h")
+                    ||toCorrect.valor.equals("i") || toCorrect.valor.equals("j") ||toCorrect.valor.equals("k") || toCorrect.valor.equals("l")
+                    ||toCorrect.valor.equals("m") || toCorrect.valor.equals("n") ||toCorrect.valor.equals("ñ") || toCorrect.valor.equals("o")
+                    ||toCorrect.valor.equals("p") || toCorrect.valor.equals("q") ||toCorrect.valor.equals("r") || toCorrect.valor.equals("s")
+                    ||toCorrect.valor.equals("t") || toCorrect.valor.equals("u") ||toCorrect.valor.equals("v") || toCorrect.valor.equals("w")
+                    ||toCorrect.valor.equals("x") || toCorrect.valor.equals("y") || toCorrect.valor.equals("z")){
+                toCorrect.tipo = "literal";
+                newTokenStream.add(toCorrect);
             }else{
                 newTokenStream.add(toCorrect);
             }
@@ -333,6 +354,8 @@ public class RScanner {
         for (int a = 0; a < newTokenStream.size(); a++) {
             System.out.println(newTokenStream.get(a).tipo + ", " + newTokenStream.get(a).valor);
         }
+
+
 
         return newTokenStream;
     }
