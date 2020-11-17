@@ -1,24 +1,23 @@
 package parser;
 
-import compiler.parser.Node;
 import scanner.Token;
 
 import java.util.*;
 
 public class Parser {
 
-    //AST root
-    Node root;
-
-    // Constructors
-    Parser(Token key)
+    static class Node
     {
-        root = new Node(key);
-    }
+        Token key;
+        Vector<Node> child;
+    };
 
-    Parser()
+    static Node newNode(Token key)
     {
-        root = null;
+        Node temp = new Node();
+        temp.key = (Token) key;
+        temp.child = new Vector<Node>();
+        return temp;
     }
 
     static void shift(Stack st, Stack to, Token token, int a) { //Mete un token al stack de tokens y un estado al stack de estados
@@ -68,9 +67,13 @@ public class Parser {
 
     public static void main(ArrayList<Token> tokens)  {
 
-        Parser tree = new Parser();
-        tree.root = new Node(new Token("(","("));
-
+        Node root = newNode(new Token("program_nt","program")); //root
+        (root.child).add(newNode(new Token("class","class")));//Add child to root
+        (root.child).add(newNode(new Token("Program","Program")));
+        (root.child).add(newNode(new Token("{","{")));
+        (root.child).add(newNode(new Token("field_decl","field_decl")));
+        (root.child.get(3).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
+        (root.child.get(3).child).add(newNode(new Token("id","kalshjg89")));
 
         Stack stkTokens = new Stack();
         Stack stkStates = new Stack();
