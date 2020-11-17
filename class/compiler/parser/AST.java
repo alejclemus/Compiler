@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AST {
-    String key;
+    public String key;
     List<AST> children;
 
     public AST(String item, List<AST> children)

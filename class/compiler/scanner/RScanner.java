@@ -343,9 +343,10 @@ public class RScanner {
                     ||toCorrect.valor.equals("p") || toCorrect.valor.equals("q") ||toCorrect.valor.equals("r") || toCorrect.valor.equals("s")
                     ||toCorrect.valor.equals("t") || toCorrect.valor.equals("u") ||toCorrect.valor.equals("v") || toCorrect.valor.equals("w")
                     ||toCorrect.valor.equals("x") || toCorrect.valor.equals("y") || toCorrect.valor.equals("z")){
-                toCorrect.tipo = "literal";
+                toCorrect.tipo = "charLiteral";
                 newTokenStream.add(toCorrect);
-            }else{
+            }else if(stream.get(i-1).valor.equals('"')){}
+            else{
                 newTokenStream.add(toCorrect);
             }
 

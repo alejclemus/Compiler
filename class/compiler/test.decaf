@@ -32,3 +32,5 @@ a = a + 5;
 for ( a = 1 ; a < 5 ; a ++);
 
 klashg2343kafxX
+"hello"
+'hello'
