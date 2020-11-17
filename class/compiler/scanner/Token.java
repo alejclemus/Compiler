@@ -5,9 +5,9 @@ public class Token {
         public String valor;
 
 
-        public Token(String tipo, String Tokentype){
+        public Token(String tipo, String valor){
             this.tipo = tipo;
-            this.valor = Tokentype;
+            this.valor = valor;
 
         }
         public void setTipo(String Token){
