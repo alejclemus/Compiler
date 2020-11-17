@@ -1,16 +1,16 @@
-package parser;
-import javax.swing.tree.TreeNode;
+package compiler.parser;
+
 import java.util.Iterator;
 import java.util.List;
 
-public class AST {
-    String key;
-    List<AST> children;
+public class Node {
+    scanner.Token key;
+    List<Node> children;
 
-    public AST(String item, List<AST> children)
+    public Node(scanner.Token item)
     {
         this.key = item;
-        this.children=children;
+        this.children=null;
     }
 
     public String toString() {
@@ -23,8 +23,8 @@ public class AST {
         buffer.append(prefix);
         buffer.append(key);
         buffer.append('\n');
-        for (Iterator<AST> it = children.iterator(); it.hasNext();) {
-            AST next = it.next();
+        for (Iterator<Node> it = children.iterator(); it.hasNext();) {
+            Node next = it.next();
             if (it.hasNext()) {
                 print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
             } else {
@@ -32,5 +32,5 @@ public class AST {
             }
         }
     }
-}
 
+}

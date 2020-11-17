@@ -1,19 +1,22 @@
 package parser;
 
+import compiler.parser.Node;
 import scanner.Token;
 
 import java.util.*;
 
 public class Parser {
 
-    AST root;
+    //AST root
+    Node root;
 
-    Parser (String key,List<AST> children)
+    // Constructors
+    Parser(Token key)
     {
-        root = new AST(key, children);
+        root = new Node(key);
     }
 
-    Parser ()
+    Parser()
     {
         root = null;
     }
@@ -54,38 +57,28 @@ public class Parser {
 
         System.out.println("Tokens: " + to);
 
-        //Crear lista de los nodos hijo a partir de la gramatica
-        List<AST> addchildren = new ArrayList<>();
+        //Crear lista de los nodos hijo
+        List<Node> addchildren = new ArrayList<>();
 
-
-        if(tree.root != null){
-            System.out.println("Hay que cambiar el root");
-        }
-        else
-        {
-            for(int i=1; i< target;i++){
-                List<AST> grandchildren = new ArrayList<>();
-                addchildren.add(new AST(grammar[num-1][i],grandchildren));
-            }
-            
-            tree.root=new AST(grammar[num-1][0],addchildren);
-        }
 
     }
     static  void error(){
         System.out.println("Token not valid");
     }
 
-    public static void main(String[] args)  {
+    public static void main(ArrayList<Token> tokens)  {
+
+        Parser tree = new Parser();
+        tree.root = new Node(new Token("(","("));
+
+
         Stack stkTokens = new Stack();
         Stack stkStates = new Stack();
         stkStates.push(0);
 
-        Parser ASTree = new Parser();
-
 
         //ACTIONS TABLE ARRAYS
-        String [][] grammar ={{"S","X"},
+       /* String [][] grammar ={{"S","X"},
                               {"X","(","X",")"},
                               {"X","(",")"},};
         String [] inputSymbols = {"(",")","$","X"};
@@ -96,21 +89,54 @@ public class Parser {
                           {"reduce 3","reduce 3","reduce 3"},
                           {"reduce 2","reduce 2","reduce 2"}};
 
-        List<Token> listTokens = new ArrayList<Token>();
+        */
+
+        ArrayList<Token> listTokens = new ArrayList<>();
         listTokens.add(new Token("(","terminal"));
         listTokens.add(new Token("(","terminal"));
         listTokens.add(new Token(")","terminal"));
         listTokens.add(new Token(")","terminal"));
 
         int tokensCounter=0;
-        int listzise=listTokens.size();
+        int statesCounter=0;
 
-        for (int i = 0; i < actionsT.length; i++){
+        //int listzise=listTokens.size();
+
+        Token[] terminals= new Token[23];
+        terminals[0]=new Token("class","class");
+        terminals[1]=new Token("program","program");
+        terminals[2]=new Token("{","{");
+        terminals[3]=new Token("}","}");
+
+        if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
+            tokensCounter++;
+            shift(stkStates,stkTokens,listTokens.get(tokensCounter),statesCounter);
+
+            if (listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
+                tokensCounter++;
+                if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
+                    tokensCounter++;
+                    if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
+                        //Empty program
+
+                    }
+
+                }
+                else System.out.print("Error missing '{'");
+            }
+            else System.out.print("Error:class Program not declared");
+        }
+        else System.out.print("Error: class Program not declared");
+
+
+
+
+
+
+/*        for (int i = 0; i < actionsT.length; i++){
             for (int j = 0; j < actionsT[i].length; j++){
-                System.out.println();
                 if (inputSymbols[j]==listTokens.get(tokensCounter).tipo){
                     String expression=actionsT[i][j];
-
                     String[] expressionarr = expression.split(" ");
                     switch (expressionarr[0]) {
                         case "shift":
@@ -119,6 +145,9 @@ public class Parser {
                             shift(stkStates,stkTokens,listTokens.get(tokensCounter),k);
                             i=k-1;
                             tokensCounter++;
+                            if(tokensCounter==listzise){
+
+                            }
                             break;
                         case "goTo":
                             int l=Integer.parseInt(expressionarr[1]);
@@ -131,8 +160,10 @@ public class Parser {
                             int m=Integer.parseInt(expressionarr[1]);
                             System.out.println("reduce ("+m+")");
                             reduce(stkStates,stkTokens,m,grammar, ASTree);
-                            i=2;
-                            tokensCounter++;
+                            String lastToken= stkStates.peek().toString();
+                            System.out.println(lastToken);
+                            i=Integer.parseInt(lastToken)-1;
+                            //tokensCounter++;
                             break;
                         //case "error":x
                            // error();
@@ -141,8 +172,19 @@ public class Parser {
                     }
                 }
             }
-        }
+        }*/
 
 
     }
+
+    void field_decl_list ( ArrayList<Token> listTokens,Token[] terminals, int tcounter, int scounter){
+        if (listTokens.get(tcounter).tipo.equals(terminals[tcounter].tipo)){
+
+        }
+    }
+
+    void method_decl_list (){
+
+    }
+
 }
