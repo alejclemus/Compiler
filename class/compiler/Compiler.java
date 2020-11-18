@@ -1,4 +1,6 @@
 import scanner.RScanner;
+import semantic.Semantic;
+
 import java.util.Scanner;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
@@ -74,7 +76,7 @@ public class Compiler {
 
         Scanner Scanstring= readFile(filename);
         RScanner scanner = new RScanner();
-
+        Semantic semantic = new Semantic();
         switch (param){
             case "-o":
                 System.out.println("Output is in "+paramflag);
@@ -100,6 +102,7 @@ public class Compiler {
                         System.out.println("stage: parsing");
                         System.out.println("stage: ast");
                         System.out.println("stage: semantic");
+                        semantic.TreeCreator();
                         break;
                     case "irt":
                         System.out.println("stage: scanning");

@@ -1,36 +1,6 @@
-int
-boolean
-[ ]
-{ }
-$
-class
-program
-,
-+
--
-*
-/
-%
-<
->
-<=
->=
-==
-!=
-&&
-||
-true
-false
-=
-+=
--=
-asdf
-0xE4
-12
-int a;
-a = a + 5;
-for ( a = 1 ; a < 5 ; a ++);
-
-klashg2343kafxX
-"hello"
-'hello'
+class program {
+int kadjlad
+{
+int nueva
+}
+}
