@@ -21,12 +21,21 @@ public class Semantic {
 public static void TreeCreator(){
 
 Node root = newNode(new Token("program_nt","program")); //root
-    (root.child).add(newNode(new Token("class","class")));//Add child to root
-    (root.child).add(newNode(new Token("Program","Program")));
-    (root.child).add(newNode(new Token("{","{")));
-    (root.child).add(newNode(new Token("field_decl","field_decl")));
+    /* 0 */(root.child).add(newNode(new Token("class","class")));//Add child to root
+    /* 1 */(root.child).add(newNode(new Token("Program","Program")));
+    /* 2 */(root.child).add(newNode(new Token("{","{")));
+    /* 3 */(root.child).add(newNode(new Token("field_decl","field_decl")));
     (root.child.get(3).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
-    (root.child.get(3).child).add(newNode(new Token("id","kalshjg89")));
+    (root.child.get(3).child).add(newNode(new Token("id","a")));
+    /* 4 */(root.child).add(newNode(new Token("{","{")));
+    /* 5 */(root.child).add(newNode(new Token("field_decl","field_decl")));
+    (root.child.get(5).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
+    (root.child.get(5).child).add(newNode(new Token("id","b")));
+    /* 6 */(root.child).add(newNode(new Token("}","}")));
+    /* 7 */(root.child).add(newNode(new Token("field_decl","field_decl")));
+    (root.child.get(7).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
+    (root.child.get(7).child).add(newNode(new Token("id","c")));
+    /* 8 */(root.child).add(newNode(new Token("}","}")));
    /*  Code for testing the tree iteration, it works!
     Node root = newNode(new Token("program_nt","x")); //root
     (root.child).add(newNode(new Token("class","0, UNO")));//Add child to root
@@ -52,17 +61,49 @@ Recorrer(root);
         
     }
 
+
+    static LinkedList<Row> table = new LinkedList<>();
+    static int scope = 0;
     public static void Recorrer(Node root){
-        boolean stop = false;
+
 
         for (int i = 0; i <root.child.size() ; i++) {
             System.out.println(root.child.get(i).key.tipo+" , "+ root.child.get(i).key.valor);
+            if(root.child.get(i).key.tipo.equals("{")||root.child.get(i).key.tipo.equals("(")){
+                scope +=1;
+                System.out.println(scope);
+            }else if(root.child.get(i).key.tipo.equals("}")||root.child.get(i).key.tipo.equals("}")){
+                scope = scope-1;
+                System.out.println(scope);
+
+            }else if(root.child.get(i).key.tipo.equals("type")){
+                System.out.println(root.child.get(i).child.get(0).key.tipo);
+
+            }
 
             if(root.child.get(i).child.isEmpty() == false){
                 int index = i;
                 for (int j = 0; j <root.child.get(index).child.size() ; j++) {
+                    //check for scope
+                    if(root.child.get(index).child.get(j).key.tipo.equals("{") ||root.child.get(index).child.get(j).key.tipo.equals("(") ){
+                        scope +=1;
+                    }else if(root.child.get(index).child.get(j).key.tipo.equals("}")||root.child.get(index).child.get(j).key.tipo.equals(")")){
+                        scope =scope-1;
+                    }else if(root.child.get(index).child.get(j).key.tipo.equals("type")){ // check if node has a variable declaration
+                        Row fila = new Row(root.child.get(index).child.get(j).key.valor, root.child.get(index).child.get(j+1).key.valor, scope);
+                        table.add(fila);
+
+                        //imprimir table (also recorrerla)
+                        for (int k = 0; k <table.size(); k++) {
+                            System.out.println(table.get(k).type +", "+table.get(k).name+", "+table.get(k).scope);
+                        }
+
+
+
+                    }
+
                     Node recursive = root.child.get(index).child.get(j);
-                    System.out.println(root.child.get(index).child.get(j).key.valor +" , "+ root.child.get(index).child.get(j).key.tipo);
+                    //System.out.println(root.child.get(index).child.get(j).key.valor +" , "+ root.child.get(index).child.get(j).key.tipo);
                     Recorrer(recursive);
 
                 }

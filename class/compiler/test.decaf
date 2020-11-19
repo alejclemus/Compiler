@@ -1,6 +1,9 @@
 class program {
-int kadjlad
-{
-int nueva
-}
+    int a
+        {
+            int b
+            int c
+            c * b
+        }
+    int d
 }
