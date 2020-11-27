@@ -35,32 +35,35 @@ public class Parser {
         System.out.println("States: " + st);
     }
 
-    static void reduce(Stack st, Stack <Token> to, int num, String [] grammar, Node root, Token [] newTokens) { //Se sacan los tokens que se pueden simplificar y se sacan la cantidad de estados que diga
+    static void reduce(Stack st, Stack <Token> to, Stack<Node> rto,int num, String [] grammar, Node root, Token [] newTokens) { //Se sacan los tokens que se pueden simplificar y se sacan la cantidad de estados que diga
 
         //AST
-        if(root == null){
-            root =newNode(newTokens[num]);
-            for (int i=0;i<to.size();i++){
-                (root.child).add(newNode(to.get(i)));
-            }
-        }
-        else{
-            Node temproot= newNode(newTokens[num]);
-        }
+        Node temproot = newNode(newTokens[num]); //Root temporal de la reduccion
 
-        String searchFor=grammar[num];
+        String searchFor=grammar[num]; //Encontrar el nodo hasta en en donde se tiene que hacer la reduccion
+
         //Pop del array de tokens y de estados
         while (!to.empty() && !to.peek().equals(searchFor)) {
-            to.pop();
+            if(to.peek().tipo == rto.peek().key.tipo){
+                (temproot.child).add(rto.pop());
+            }
+            else {
+                (temproot.child).add(newNode(to.pop())); //Agregar como hijos del temporal a los tokens
+            }
             st.pop();
         }
+        to.push(newTokens[num]);//Pushear el nodo de la reduccion
+        rto.push(temproot); //Pushear al stack de tokens que ya tienen hijos este nodo
+
+
+
         System.out.println("States: " + st);
         System.out.println("Tokens: "+ to.toString() );
         //Push del nuevo token
 
-        System.out.print(root.key.tipo+" ");
+        /*System.out.print(root.key.tipo+" ");
         for (Node it : root.child)
-            System.out.print(it.key.tipo+" ");
+            System.out.print(it.key.tipo+" ");*/
 
     }
 
@@ -76,20 +79,12 @@ public class Parser {
 
     }
 
-    public static void main (String[] args)  {
+    public Node mainParse(ArrayList<Token> listTokens)  {
 
         Node root=null;
-        // Node root = newNode(new Token("program_nt","program")); //root
-        //(root.child).add(newNode(new Token("class","class")));//Add child to root
-        // (root.child).add(newNode(new Token("Program","Program")));
-        // (root.child).add(newNode(new Token("{","{")));
-        //(root.child).add(newNode(new Token("field_decl","field_decl")));
-        // (root.child.get(3).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
-        // (root.child.get(3).child).add(newNode(new Token("id","kalshjg89")));
-        //  (root.child.get(3).child).add(newNode(new Token(";",";")));
-        //  (root.child).add(newNode(new Token("}","}")));
 
         Stack <Token> stkTokens = new Stack();
+        Stack <Node> stkReducedTokens = new Stack();
         Stack stkStates = new Stack();
 
 
@@ -125,7 +120,7 @@ public class Parser {
 
         //ACTIONS TABLE ARRAYS
         String [] inputSymbols = {"class","program","{","}","$","[","]","(",")",",",";","!","type","void",
-                "if", "else","for","return","break","continue","assign_op","callout","bin_op",
+                "if", "else","for","return","break","continue","assignation","callout","operator",
                 "literal","id","string_literal","Program","field_decl","method_decl","block","var_decl","statement",
                 "method_call","method_name","location","expr","callout_arg"};
 
@@ -137,14 +132,6 @@ public class Parser {
                 //{"reduce 2","reduce 2","reduce 2"}
         };
 
-
-
-        ArrayList<Token> listTokens = new ArrayList<>();
-        listTokens.add(new Token("class","class"));
-        listTokens.add(new Token("program","program"));
-        listTokens.add(new Token("{","{"));
-        listTokens.add(new Token("}","}"));
-        listTokens.add(new Token("$","$"));
 
         int tokensCounter=0;
         int currentState=0;
@@ -195,16 +182,17 @@ public class Parser {
                             currentState=k;
                             break;
                         case "goTo":
-                            int l=Integer.parseInt(expressionarr[1]);
+                            int l=Integer.parseInt(expressionarr[1]); //El numero para saber a que estado hacer el goto
                             System.out.println("goto s"+l);
                             goTo(stkStates,l);
-                            i=l-1;
+                            i=l;
                             tokensCounter++;
+                            currentState=l;
                             break;
                         case "reduce":
                             int m=Integer.parseInt(expressionarr[1]);
                             System.out.println("reduce ("+m+")");
-                            reduce(stkStates,stkTokens,m,grammar,root,newTokens);
+                            reduce(stkStates,stkTokens,stkReducedTokens,m,grammar,root,newTokens);
                             //tokensCounter++;
                             break;
                         case "error":
@@ -216,6 +204,6 @@ public class Parser {
             }
         }
 
-
+        return root;
     }
 }

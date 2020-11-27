@@ -1,8 +1,11 @@
 package compiler;
 
+import compiler.parser.Parser;
 import compiler.scanner.RScanner;
+import compiler.scanner.Token;
 import compiler.semantic.Semantic;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
@@ -79,6 +82,9 @@ public class Compiler {
         Scanner Scanstring= readFile(filename);
         RScanner scanner = new RScanner();
         Semantic semantic = new Semantic();
+        Parser parser = new Parser();
+        ArrayList<Token> TokenStream = new ArrayList<>(); //use in parser
+
         switch (param){
             case "-o":
                 System.out.println("Output is in "+paramflag);
@@ -92,7 +98,10 @@ public class Compiler {
                         break;
                     case "parse":
                         System.out.println("stage: scanning");
+                        TokenStream = RScanner.MainScan(readFile(filename));
                         System.out.println("stage: parsing");
+                        parser.mainParse(TokenStream);
+
                         break;
                     case "ast":
                         System.out.println("stage: scanning");
