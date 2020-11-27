@@ -1,6 +1,4 @@
-package scanner;
-
-import scanner.Token;
+package compiler.scanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;

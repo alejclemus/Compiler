@@ -1,5 +1,7 @@
-import scanner.RScanner;
-import semantic.Semantic;
+package compiler;
+
+import compiler.scanner.RScanner;
+import compiler.semantic.Semantic;
 
 import java.util.Scanner;
 import java.io.File;  // Import the File class

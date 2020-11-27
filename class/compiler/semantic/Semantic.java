@@ -1,6 +1,6 @@
-package semantic;
+package compiler.semantic;
 import java.util.*;
-import scanner.Token;
+import compiler.scanner.Token;
 
 
 public class Semantic {
@@ -61,8 +61,7 @@ Recorrer(root);
         
     }
 
-
-    static LinkedList<Row> table = new LinkedList<>();
+    static LinkedList<semantic.Row> table = new LinkedList<>();
     static int scope = 0;
     public static void Recorrer(Node root){
 
@@ -90,7 +89,7 @@ Recorrer(root);
                     }else if(root.child.get(index).child.get(j).key.tipo.equals("}")||root.child.get(index).child.get(j).key.tipo.equals(")")){
                         scope =scope-1;
                     }else if(root.child.get(index).child.get(j).key.tipo.equals("type")){ // check if node has a variable declaration
-                        Row fila = new Row(root.child.get(index).child.get(j).key.valor, root.child.get(index).child.get(j+1).key.valor, scope);
+                        semantic.Row fila = new semantic.Row(root.child.get(index).child.get(j).key.valor, root.child.get(index).child.get(j+1).key.valor, scope);
                         table.add(fila);
 
                         //imprimir table (also recorrerla)
