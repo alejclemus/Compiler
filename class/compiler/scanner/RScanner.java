@@ -1,4 +1,4 @@
-package compiler.scanner;
+package scanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -343,8 +343,10 @@ public class RScanner {
                     ||toCorrect.valor.equals("x") || toCorrect.valor.equals("y") || toCorrect.valor.equals("z")){
                 toCorrect.tipo = "charLiteral";
                 newTokenStream.add(toCorrect);
-            }else if(stream.get(i-1).valor.equals('"')){}
-            else{
+            }else if (toCorrect.valor.equals("!")) {
+                toCorrect.tipo = "!";
+                newTokenStream.add(toCorrect);
+            }else{
                 newTokenStream.add(toCorrect);
             }
 

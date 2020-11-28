@@ -1,9 +1,8 @@
-package compiler;
-
-import compiler.parser.Parser;
-import compiler.scanner.RScanner;
-import compiler.scanner.Token;
-import compiler.semantic.Semantic;
+import irt.IRT;
+import parser.Parser;
+import scanner.RScanner;
+import scanner.Token;
+import semantic.Semantic;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -121,6 +120,7 @@ public class Compiler {
                         System.out.println("stage: ast");
                         System.out.println("stage: semantic");
                         System.out.println("stage: irt");
+                        IRT.Tree();
                         break;
                     case "codegen":
                         System.out.println("stage: scanning");
