@@ -345,7 +345,11 @@ public class RScanner {
                     ||toCorrect.valor.equals("x") || toCorrect.valor.equals("y") || toCorrect.valor.equals("z")){
                 toCorrect.tipo = "charLiteral";
                 newTokenStream.add(toCorrect);
+            }else if (toCorrect.valor.equals("!")) {
+                toCorrect.tipo = "!";
+                newTokenStream.add(toCorrect);
             }else if(stream.get(i-1).valor.equals('"')){}
+
             else{
                 newTokenStream.add(toCorrect);
             }

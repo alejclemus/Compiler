@@ -1,4 +1,5 @@
 package semantic;
+import java.sql.SQLOutput;
 import java.util.*;
 import scanner.Token;
 
@@ -46,10 +47,31 @@ Node root = newNode(new Token("program_nt","program")); //root
     ((root.child.get(3).child).get(4).child.get(3).child).add(newNode(new Token("return", "return")));
     ((root.child.get(3).child).get(4).child.get(3).child).add(newNode(new Token("exp", "exp")));
     ((root.child.get(3).child).get(4).child.get(3).child.get(1).child).add(newNode(new Token("exp", "exp")));
-    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child).add(newNode(new Token("bin_op", "exp")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child).add(newNode(new Token("operator", "*")));
     ((root.child.get(3).child).get(4).child.get(3).child.get(1).child).add(newNode(new Token("exp", "exp")));
-    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child.get(0).child).add(newNode(new Token("literal", "literal")));
-    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child.get(2).child).add(newNode(new Token("literal", "literal")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child.get(0).child).add(newNode(new Token("literal", "a")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(1).child.get(2).child).add(newNode(new Token("literal", "c")));
+    ((root.child.get(3).child).get(4).child.get(4).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(4).child).add(newNode(new Token("return", "return")));
+    ((root.child.get(3).child).get(4).child.get(4).child.get(1).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(4).child.get(1).child).add(newNode(new Token("operator", "*")));
+    ((root.child.get(3).child).get(4).child.get(4).child.get(1).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(4).child.get(1).child.get(0).child).add(newNode(new Token("literal", "b")));
+    ((root.child.get(3).child).get(4).child.get(4).child.get(1).child.get(2).child).add(newNode(new Token("literal", "c")));
+    (root.child).add(newNode(new Token("{","{")));
+    (root.child).add(newNode(new Token("type","int")));
+    (root.child).add(newNode(new Token("id","c")));
+
+
+
+    /*
+    ((root.child.get(3).child).get(4).child.get(3).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(2).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(2).child).add(newNode(new Token("operator", "*")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(2).child).add(newNode(new Token("exp", "exp")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(2).child.get(0).child).add(newNode(new Token("literal", "c")));
+    ((root.child.get(3).child).get(4).child.get(3).child.get(2).child.get(2).child).add(newNode(new Token("literal", "d")));
+*/
 
     /* first scope detection test
     (root.child).add(newNode(new Token("class","class")));//Add child to root
@@ -88,7 +110,8 @@ Node root = newNode(new Token("program_nt","program")); //root
 */
 
 
-checkUniqueness(Recorrer(root));
+//checkUniqueness(Recorrer(root));
+typeCheck(root, Recorrer(root));
 
 
         
@@ -97,6 +120,7 @@ checkUniqueness(Recorrer(root));
 
     static LinkedList<Row> table = new LinkedList<>();
     static int scope = 0;
+
     public static LinkedList<Row> Recorrer(Node root){
         for (int i = 0; i <root.child.size() ; i++) {
 
@@ -105,13 +129,7 @@ checkUniqueness(Recorrer(root));
 
             }else if(root.child.get(i).key.tipo.equals("}")||root.child.get(i).key.tipo.equals("}")){
                 scope = scope-1;
-               ;
-
-            }else if(root.child.get(i).key.tipo.equals("type")){
-
-
             }
-
             if(root.child.get(i).child.isEmpty() == false){
                 int index = i;
                 for (int j = 0; j <root.child.get(index).child.size() ; j++) {
@@ -122,7 +140,7 @@ checkUniqueness(Recorrer(root));
                         scope = scope-1;
                     }else if(root.child.get(index).child.get(j).key.tipo.equals("type")){ // check if node has a variable declaration
                         Row fila = new Row(root.child.get(index).child.get(j).key.valor, root.child.get(index).child.get(j+1).key.valor, scope);
-                        System.out.println(root.child.get(index).child.get(j).key.valor+" "+root.child.get(index).child.get(j+1).key.valor+" "+scope);
+                        //System.out.println(root.child.get(index).child.get(j).key.valor+" "+root.child.get(index).child.get(j+1).key.valor+" "+scope);
                         table.add(fila);
                     }
                     Node recursive = root.child.get(index).child.get(j);
@@ -134,7 +152,120 @@ checkUniqueness(Recorrer(root));
             }
 
         }
+
+
         return table;
+
+    }
+
+    static int scope2 = 0;
+    public static void typeCheck(Node root, LinkedList<Row> tabla) {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> operators = new ArrayList<>();
+        for (int i = 0; i < root.child.size(); i++) {
+            //definimos scope
+            if (root.child.get(i).key.tipo.equals("{") || root.child.get(i).key.tipo.equals("(")) {
+                scope2 += 1;
+
+            } else if (root.child.get(i).key.tipo.equals("}") || root.child.get(i).key.tipo.equals("}")) {
+                scope2 = scope2 - 1;
+            } else if (root.child.get(i).key.tipo.equals("operator")) {
+                //System.out.println(scope2);
+                operators.add(root.child.get(i).key.valor);
+            }
+            if (root.child.get(i).child.isEmpty() == false) {
+                int index = i;
+
+                for (int j = 0; j < root.child.get(index).child.size(); j++) {
+                    if (root.child.get(index).child.get(j).key.tipo.equals("{") || root.child.get(index).child.get(j).key.tipo.equals("(")) {
+                        scope2 += 1;
+                    } else if (root.child.get(index).child.get(j).key.tipo.equals("}") || root.child.get(index).child.get(j).key.tipo.equals(")")) {
+                        scope2 = scope2 - 1;
+                    } else if (root.child.get(index).child.get(j).key.tipo.equals("literal") && root.child.get(index).child.get(j).key.tipo != "true" && root.child.get(index).child.get(j).key.tipo != "false") {// si uno de los hijos del nodo es literal
+                        //System.out.println(scope2);
+                        ids.add(root.child.get(index).child.get(j).key.valor);
+                        for (int k = 0; k < ids.size(); k++) {
+                            //System.out.println(ids.size());
+                            //System.out.println(ids.get(k));
+
+                        }
+                    } else if (root.child.get(index).child.get(j).key.tipo.equals("operator")) {
+                        operators.add(root.child.get(index).child.get(j).key.tipo);
+                        //System.out.println(root.child.get(index).child.get(j).key.valor);
+                    }
+                    Node recursive = root.child.get(index).child.get(j);
+                    typeCheck(recursive, table);
+                }
+            }
+        }
+
+        if (ids.size() > 1 && operators.size() > 0) {
+
+            //iteramos la tabla para encontrar el scope sobre el cual las variables estan escritas
+            ArrayList<String> idsInScope = new ArrayList();
+            ArrayList<String> typesinScope = new ArrayList<>();
+
+            //pass
+            for (int j = 0; j < tabla.size(); j++) {
+                if (tabla.get(j).scope <= scope2) {
+                    idsInScope.add(tabla.get(j).name);
+                    typesinScope.add(tabla.get(j).type);
+                    //System.out.println(idsInScope.get(j));
+                   // System.out.println(typesinScope.get(j));
+                }
+            }
+
+
+            ArrayList<String> typesinOperation = new ArrayList<>();
+            for (int i = 0; i < ids.size(); i++) {
+                for (int j = idsInScope.size(); j-- > 0; ) {
+
+                    if (ids.get(i).equals(idsInScope.get(j))) {
+                        typesinOperation.add(typesinScope.get(j));
+                        break;
+                    }
+
+                }
+
+            }
+            for (int i = 0; i <typesinOperation.size() ; i++) {
+                System.out.println(typesinOperation.get(i));
+
+            }
+
+            if (typesinOperation.get(0) != typesinOperation.get(1)) {
+                System.out.println("ERROR, INCOPATIBLE OPERATION, PARAMETERS HAVE DIFFERENT TYPES");
+            }
+
+
+            for (int j = 0; j < ids.size(); j++) {
+                String toCheck = ids.get(j);
+                if (idsInScope.contains(toCheck)) {
+                } else {
+                    System.out.println("ERROR, VARIABLE CALLED OUT OF SCOPE OR DOESN\'T EXIST");
+                }
+
+
+            }
+
+            for (int i = 0; i < typesinOperation.size(); i++) {
+                if(typesinOperation.get(i) == "literal" || typesinOperation.get(i)=="stringLiteral"|| typesinOperation.get(i)=="boolean"){
+                    for (int j = 0; j <operators.size() ; j++) {
+                        if(operators.get(i).equals("<") ||operators.get(i).equals(">") ||operators.get(i).equals("<=")
+                                || operators.get(i).equals(">=") || operators.get(i).equals("+") ||operators.get(i).equals("-")
+                                ||operators.get(i).equals("*") ||operators.get(i).equals("/") ||operators.get(i).equals("%")){
+
+                            System.out.println("OPERATION CANNOT BE DONE WITH VARIABLE TYPE");
+                        }
+
+                    }
+                }
+
+
+            }
+
+
+        }
 
     }
 static int scopeCounter=0;
@@ -169,9 +300,6 @@ public static void checkUniqueness(LinkedList<Row> tabla){
 
             }
             scopeCounter +=1;
-
-
-
     }
 
 
@@ -184,7 +312,7 @@ public static void checkUniqueness(LinkedList<Row> tabla){
 
 }
 
-    public static LinkedList<Row> checkrecursive(LinkedList<Row> tabla){
+public static LinkedList<Row> checkrecursive(LinkedList<Row> tabla){
 
         LinkedList<Row> temporal = new LinkedList<>();
         //imprimir table (also recorrerla)
@@ -204,7 +332,24 @@ public static void checkUniqueness(LinkedList<Row> tabla){
     return temporal;
     }
 
+    public static void checkType(LinkedList<Row> tabla, Node arbol){
 
+        for (int i = 0; i <arbol.child.size() ; i++) {
+
+            //si el nodo tiene hijos entonces recorremos los hijos del nodo
+            if(arbol.child.get(i).child.isEmpty() == false) {
+                int index = i;
+                for (int j = 0; j <arbol.child.get(index).child.size(); j++) {
+
+                    //recursividad
+                    Node recursive = arbol.child.get(index).child.get(j);
+                    //System.out.println(root.child.get(index).child.get(j).key.valor +" , "+ root.child.get(index).child.get(j).key.tipo);
+                    Recorrer(recursive);
+                }
+            }
+        }
+
+    }
 
 
 public static void main(String[] args){
@@ -212,17 +357,8 @@ public static void main(String[] args){
     TreeCreator();
 
 }
-    public static void insertTotable(){
-    
-
-
-    }
 
 
 
 
-
-    public static void checkmethoddeclaration(){
-
-    }
 }
