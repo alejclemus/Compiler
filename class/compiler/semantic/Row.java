@@ -1,4 +1,4 @@
-package compiler.semantic;
+package semantic;
 
 
 public class Row {

@@ -1,6 +1,6 @@
-package compiler.parser;
+package parser;
 
-import compiler.scanner.Token;
+import scanner.Token;
 
 import java.util.*;
 

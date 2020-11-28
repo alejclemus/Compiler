@@ -4,8 +4,9 @@ import java.util.*;
 import scanner.Token;
 
 
+
 public class Semantic {
-   
+
 
     //building Tree
     static class Node
@@ -114,7 +115,7 @@ Node root = newNode(new Token("program_nt","program")); //root
 typeCheck(root, Recorrer(root));
 
 
-        
+
     }
 
 
@@ -332,24 +333,6 @@ public static LinkedList<Row> checkrecursive(LinkedList<Row> tabla){
     return temporal;
     }
 
-    public static void checkType(LinkedList<Row> tabla, Node arbol){
-
-        for (int i = 0; i <arbol.child.size() ; i++) {
-
-            //si el nodo tiene hijos entonces recorremos los hijos del nodo
-            if(arbol.child.get(i).child.isEmpty() == false) {
-                int index = i;
-                for (int j = 0; j <arbol.child.get(index).child.size(); j++) {
-
-                    //recursividad
-                    Node recursive = arbol.child.get(index).child.get(j);
-                    //System.out.println(root.child.get(index).child.get(j).key.valor +" , "+ root.child.get(index).child.get(j).key.tipo);
-                    Recorrer(recursive);
-                }
-            }
-        }
-
-    }
 
 
 public static void main(String[] args){

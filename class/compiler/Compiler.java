@@ -1,9 +1,7 @@
-package compiler;
-
-import compiler.parser.Parser;
-import compiler.scanner.RScanner;
-import compiler.scanner.Token;
-import compiler.semantic.Semantic;
+import parser.Parser;
+import scanner.RScanner;
+import scanner.Token;
+import semantic.Semantic;
 
 import java.util.ArrayList;
 import java.util.Scanner;
