@@ -1,4 +1,4 @@
-package scanner;
+package compiler.scanner;
 
 public class Token {
         public String tipo;
@@ -17,9 +17,8 @@ public class Token {
             this.valor =Tokentype;
         }
 
-        public void display(){
-            System.out.println(this.tipo);
-            System.out.println(this.valor);
-
-        }
+    @Override
+    public String toString() {
+        return tipo;
+    }
 }

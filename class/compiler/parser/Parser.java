@@ -1,6 +1,6 @@
-package parser;
+package compiler.parser;
 
-import scanner.Token;
+import compiler.scanner.Token;
 
 import java.util.*;
 
@@ -20,12 +20,14 @@ public class Parser {
         return temp;
     }
 
-    static void shift(Stack st, Stack to, Token token, int a) { //Mete un token al stack de tokens y un estado al stack de estados
-        st.push(a);
+
+
+    static void shift(Stack st, Stack <Token> to, Token token, int a, int state) { //Mete un token al stack de tokens y un estado al stack de estados
+        st.push(state);
         System.out.println("States: " + st);
-        String tokenItem= token.tipo;
-        to.push(tokenItem);
-        System.out.println("Tokens: " + to);
+        to.push(token);
+        System.out.println("Tokens: "+ to.toString() );
+
     }
 
     static void goTo(Stack st, int a) { //mete un estado al stack de estados
@@ -33,161 +35,175 @@ public class Parser {
         System.out.println("States: " + st);
     }
 
-    static void reduce(Stack st, Stack to, int num, String [][] grammar, Parser tree) { //Se sacan los tokens que se pueden simplificar y se sacan la cantidad de estados que diga
+    static void reduce(Stack st, Stack <Token> to, Stack<Node> rto,int num, String [] grammar, Node root, Token [] newTokens) { //Se sacan los tokens que se pueden simplificar y se sacan la cantidad de estados que diga
 
-        int target=grammar[num-1].length;
-        //Pop del array de estadis
-        for(int i =0; i < target-1; i++){
-            System.out.print("pop -> ");
-            Integer a = (Integer) st.pop();
-            System.out.println(a);
+        //AST
+        Node temproot = newNode(newTokens[num]); //Root temporal de la reduccion
+
+        String searchFor=grammar[num]; //Encontrar el nodo hasta en en donde se tiene que hacer la reduccion
+
+        //Pop del array de tokens y de estados
+        while (!to.empty() && !to.peek().equals(searchFor)) {
+            if(to.peek().tipo == rto.peek().key.tipo){
+                (temproot.child).add(rto.pop());
+            }
+            else {
+                (temproot.child).add(newNode(to.pop())); //Agregar como hijos del temporal a los tokens
+            }
+            st.pop();
         }
+        to.push(newTokens[num]);//Pushear el nodo de la reduccion
+        rto.push(temproot); //Pushear al stack de tokens que ya tienen hijos este nodo
+
+
+
         System.out.println("States: " + st);
-
-        //Pop del array de tokens
-        for(int i =0; i < target-1; i++){
-            System.out.print("pop -> ");
-            String b = (String) to.pop();
-            System.out.println(b);
-        }
-
+        System.out.println("Tokens: "+ to.toString() );
         //Push del nuevo token
-        to.push(grammar[num-1][0]);
 
-        System.out.println("Tokens: " + to);
-
-        //Crear lista de los nodos hijo
-        List<Node> addchildren = new ArrayList<>();
-
+        /*System.out.print(root.key.tipo+" ");
+        for (Node it : root.child)
+            System.out.print(it.key.tipo+" ");*/
 
     }
+
     static  void error(){
         System.out.println("Token not valid");
     }
 
-    public static void main(ArrayList<Token> tokens)  {
+    static void follow() {
 
-        Node root = newNode(new Token("program_nt","program")); //root
-        (root.child).add(newNode(new Token("class","class")));//Add child to root
-        (root.child).add(newNode(new Token("Program","Program")));
-        (root.child).add(newNode(new Token("{","{")));
-        (root.child).add(newNode(new Token("field_decl","field_decl")));
-        (root.child.get(3).child).add(newNode(new Token("type","int"))); //Add child to node field_decl
-        (root.child.get(3).child).add(newNode(new Token("id","kalshjg89")));
+    }
 
-        Stack stkTokens = new Stack();
+    static void accept() {
+
+    }
+
+    public Node mainParse(ArrayList<Token> listTokens)  {
+
+        Node root=null;
+
+        Stack <Token> stkTokens = new Stack();
+        Stack <Node> stkReducedTokens = new Stack();
         Stack stkStates = new Stack();
-        stkStates.push(0);
 
+
+        //Define grammar for reduce
+        String[] grammar= {"class", //⟨program⟩ 0
+                "type", //⟨field decl⟩ 1
+                "type", //⟨method decl⟩ 2
+                "void", //⟨method decl⟩ 3
+                "{", //⟨block⟩ 4
+                "type", //⟨var decl⟩ 5
+                "location", //⟨statement⟩ 6
+                "method_call", //⟨statement⟩ 7
+                "if", //⟨statement⟩ 8
+                "for", //⟨statement⟩ 9
+                "return", //⟨statement⟩ 10
+                "break", //⟨statement⟩ 11
+                "continue", //⟨statement⟩ 12
+                "block", //⟨statement⟩ 13
+                "method_name", //⟨method call⟩ 14
+                "callout", //⟨method call⟩ 15
+                "id", //⟨method name⟩ 16
+                "id", //⟨location⟩ 17
+                "location", //⟨expr⟩ 18
+                "method_call", //⟨expr⟩ 19
+                "literal", //⟨expr⟩ 20
+                "expr", //⟨expr⟩ 21
+                "operator", //⟨expr⟩ 22
+                "!", //⟨expr⟩ 23
+                "(", //⟨expr⟩ 24
+                "expr", //⟨callout arg⟩ 25
+                "string_literal" //⟨callout arg⟩ 26
+        };
 
         //ACTIONS TABLE ARRAYS
-       /* String [][] grammar ={{"S","X"},
-                              {"X","(","X",")"},
-                              {"X","(",")"},};
-        String [] inputSymbols = {"(",")","$","X"};
-        String[][] actionsT = {{"shift 2","error", "error","goto 1"},
-                          {"error","error","accept",},
-                          {"shift 2","shift 4","error","goto 3"},
-                          {"error","shift 5","error",},
-                          {"reduce 3","reduce 3","reduce 3"},
-                          {"reduce 2","reduce 2","reduce 2"}};
+        String [] inputSymbols = {"class","program","{","}","$","[","]","(",")",",",";","!","type","void",
+                "if", "else","for","return","break","continue","assignation","callout","operator",
+                "literal","id","string_literal","Program","field_decl","method_decl","block","var_decl","statement",
+                "method_call","method_name","location","expr","callout_arg"};
 
-        */
+        String[][] actionsT = {{"shift 1","error", "error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
+                {"error","shift 2","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
+                {"error","error","shift 3","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
+                {"error","error","error","shift 4","error","error","error","error","error","error","error","error","shift 5","shift 5","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
+                {"error","error","error","error","reduce 0","error","error","error","error","error","error","error","shift 5","shift 5","error","error","accept","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
+                //{"reduce 2","reduce 2","reduce 2"}
+        };
 
-        ArrayList<Token> listTokens = new ArrayList<>();
-        listTokens.add(new Token("(","terminal"));
-        listTokens.add(new Token("(","terminal"));
-        listTokens.add(new Token(")","terminal"));
-        listTokens.add(new Token(")","terminal"));
 
         int tokensCounter=0;
-        int statesCounter=0;
+        int currentState=0;
 
-        //int listzise=listTokens.size();
+        Token [] newTokens = {new Token("main","main"), //0
+                              new Token("field_decl","field_decl"), //1
+                              new Token("method_decl","method_decl"), //2
+                              new Token("method_decl","method_decl"), //3
+                              new Token("block","block"), //4
+                              new Token("var_decl","var_decl"), //5
+                              new Token("statement","statement "), //6
+                              new Token("statement","statement "), //7
+                              new Token("statement","statement "), //8
+                              new Token("statement","statement "), //9
+                              new Token("statement","statement "), //10
+                              new Token("statement","statement "), //11
+                              new Token("statement","statement "), //12
+                              new Token("statement","statement "), //13
+                              new Token("method_call","method_call"), //14
+                              new Token("method_call","method_call"), //15
+                              new Token("method_name","method_name"), //16
+                              new Token("location","location"), //17
+                              new Token("expr","expr"), //18
+                              new Token("expr","expr"), //19
+                              new Token("expr","expr"), //20
+                              new Token("expr","expr"), //21
+                              new Token("expr","expr"), //22
+                              new Token("expr","expr"), //23
+                              new Token("expr","expr"), //24
+                              new Token("callout_arg","callout_arg"), //25
+                              new Token("callout_arg","callout_arg") //26
 
-        Token[] terminals= new Token[23];
-        terminals[0]=new Token("class","class");
-        terminals[1]=new Token("program","program");
-        terminals[2]=new Token("{","{");
-        terminals[3]=new Token("}","}");
-
-        if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
-            tokensCounter++;
-            shift(stkStates,stkTokens,listTokens.get(tokensCounter),statesCounter);
-
-            if (listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
-                tokensCounter++;
-                if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
-                    tokensCounter++;
-                    if(listTokens.get(tokensCounter).tipo.equals(terminals[tokensCounter].tipo)){
-                        //Empty program
-
-                    }
-
-                }
-                else System.out.print("Error missing '{'");
-            }
-            else System.out.print("Error:class Program not declared");
-        }
-        else System.out.print("Error: class Program not declared");
-
-
-
-
+        };
 
 
-/*        for (int i = 0; i < actionsT.length; i++){
-            for (int j = 0; j < actionsT[i].length; j++){
-                if (inputSymbols[j]==listTokens.get(tokensCounter).tipo){
-                    String expression=actionsT[i][j];
-                    String[] expressionarr = expression.split(" ");
-                    switch (expressionarr[0]) {
+        for (int i = 0; i < actionsT.length; i++){ //Recorrer cada "fila" de la tabla de acciones
+            for (int j = 0; j < actionsT[i].length; j++){ //Recorrer cada "columna" de la tabla de acciones
+                if (inputSymbols[j]==listTokens.get(tokensCounter).tipo){ //Si el siguiente token hace match con un uno de los tokens de simbolos,
+                    String expression=actionsT[i][j]; //Se busca en la tabla de acciones
+                    String[] expressionarr = expression.split(" "); //Se divide la accion para tomar la palabra y el numero por aparte
+                    switch (expressionarr[0]) { //Se toma la palabra
                         case "shift":
-                            int k=Integer.parseInt(expressionarr[1]);
+                            int k=Integer.parseInt(expressionarr[1]); //El numero para saber a que estado hacer el shift
                             System.out.println("shift to s"+k);
-                            shift(stkStates,stkTokens,listTokens.get(tokensCounter),k);
-                            i=k-1;
+                            shift(stkStates,stkTokens,listTokens.get(tokensCounter),k,currentState); //Hay que tomar el token de la lista
+                            i=k;
                             tokensCounter++;
-                            if(tokensCounter==listzise){
-
-                            }
+                            currentState=k;
                             break;
                         case "goTo":
-                            int l=Integer.parseInt(expressionarr[1]);
+                            int l=Integer.parseInt(expressionarr[1]); //El numero para saber a que estado hacer el goto
                             System.out.println("goto s"+l);
                             goTo(stkStates,l);
-                            i=l-1;
+                            i=l;
                             tokensCounter++;
+                            currentState=l;
                             break;
                         case "reduce":
                             int m=Integer.parseInt(expressionarr[1]);
                             System.out.println("reduce ("+m+")");
-                            reduce(stkStates,stkTokens,m,grammar, ASTree);
-                            String lastToken= stkStates.peek().toString();
-                            System.out.println(lastToken);
-                            i=Integer.parseInt(lastToken)-1;
+                            reduce(stkStates,stkTokens,stkReducedTokens,m,grammar,root,newTokens);
                             //tokensCounter++;
                             break;
-                        //case "error":x
-                           // error();
-                            //break;
+                        case "error":
+                            error();
+                            break;
 
                     }
                 }
             }
-        }*/
-
-
-    }
-
-    void field_decl_list ( ArrayList<Token> listTokens,Token[] terminals, int tcounter, int scounter){
-        if (listTokens.get(tcounter).tipo.equals(terminals[tcounter].tipo)){
-
         }
+
+        return root;
     }
-
-    void method_decl_list (){
-
-    }
-
 }
