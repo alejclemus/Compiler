@@ -55,6 +55,7 @@ public class Parser {
         to.push(newTokens[num]);//Pushear el nodo de la reduccion
         rto.push(temproot); //Pushear al stack de tokens que ya tienen hijos este nodo
 
+        root=temproot;
 
 
         System.out.println("States: " + st);
@@ -79,7 +80,11 @@ public class Parser {
 
     }
 
-    public Node mainParse(ArrayList<Token> listTokens)  {
+    public static void main(String[] args)  {
+
+        ArrayList<Token> listTokens = new ArrayList<Token>();
+        listTokens.add(new Token("class","class"));
+        listTokens.add(new Token("program","program"));
 
         Node root=null;
 
@@ -235,11 +240,12 @@ public class Parser {
                             tokensCounter++;
                             currentState=l;
                             break;
-                        case "reduce":
+                        case "Reduce":
                             int m=Integer.parseInt(expressionarr[1]);
                             System.out.println("reduce ("+m+")");
                             reduce(stkStates,stkTokens,stkReducedTokens,m,grammar,root,newTokens);
                             i=Integer.parseInt(stkStates.peek().toString());
+                            currentState=i;
                             //tokensCounter++;
                             break;
                         case "error":
@@ -250,7 +256,5 @@ public class Parser {
                 }
             }
         }
-
-        return root;
     }
 }
