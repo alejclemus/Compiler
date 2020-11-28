@@ -1,3 +1,4 @@
+import irt.IRT;
 import parser.Parser;
 import scanner.RScanner;
 import scanner.Token;
@@ -119,6 +120,7 @@ public class Compiler {
                         System.out.println("stage: ast");
                         System.out.println("stage: semantic");
                         System.out.println("stage: irt");
+                        IRT.Tree();
                         break;
                     case "codegen":
                         System.out.println("stage: scanning");

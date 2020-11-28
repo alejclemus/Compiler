@@ -26,7 +26,7 @@ public static void TreeCreator(){
 
 Node root = newNode(new Token("program_nt","program")); //root
 
-
+/*
     (root.child).add(newNode(new Token("class","class")));//Add child to root
     (root.child).add(newNode(new Token("Program","Program")));
     (root.child).add(newNode(new Token("{","{")));
@@ -51,7 +51,7 @@ Node root = newNode(new Token("program_nt","program")); //root
     ((root.child.get(3).child).get(4).child).get(2).child.add(newNode(new Token(";", ";")));
     ((root.child.get(3).child).get(4).child).get(2).child.get(0).child.add(newNode(new Token("id", "b")));
     ((root.child.get(3).child).get(4).child).get(2).child.get(2).child.add(newNode(new Token("literal", "1")));
-
+*/
 /*
     (root.child).add(newNode(new Token("class","class")));//Add child to root
     (root.child).add(newNode(new Token("Program","Program")));
@@ -139,7 +139,7 @@ Node root = newNode(new Token("program_nt","program")); //root
 */
 
 
-//checkUniqueness(Recorrer(root));
+checkUniqueness(Recorrer(root));
 typeCheck(root, Recorrer(root));
 
 

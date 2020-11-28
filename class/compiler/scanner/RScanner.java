@@ -346,9 +346,7 @@ public class RScanner {
             }else if (toCorrect.valor.equals("!")) {
                 toCorrect.tipo = "!";
                 newTokenStream.add(toCorrect);
-            }else if(stream.get(i-1).valor.equals('"')){}
-
-            else{
+            }else{
                 newTokenStream.add(toCorrect);
             }
 
