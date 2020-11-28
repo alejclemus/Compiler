@@ -43,7 +43,14 @@ public class Parser {
         String searchFor=grammar[num]; //Encontrar el nodo hasta en en donde se tiene que hacer la reduccion
 
         //Pop del array de tokens y de estados
-        while (!to.empty() && !to.peek().equals(searchFor)) {
+        int target=grammar[num-1].length();
+        for(int i =0; i < target-1; i++){
+            System.out.print("pop -> ");
+            Integer a = (Integer) st.pop();
+            System.out.println(a);
+        }
+
+       /* while (!to.empty() && !to.peek().equals(searchFor)) {
             if(to.peek().tipo == rto.peek().key.tipo){
                 (temproot.child).add(rto.pop());
             }
@@ -51,9 +58,9 @@ public class Parser {
                 (temproot.child).add(newNode(to.pop())); //Agregar como hijos del temporal a los tokens
             }
             st.pop();
-        }
-        to.push(newTokens[num]);//Pushear el nodo de la reduccion
-        rto.push(temproot); //Pushear al stack de tokens que ya tienen hijos este nodo
+        }*/
+        //to.push(newTokens[num]);//Pushear el nodo de la reduccion
+        //rto.push(temproot); //Pushear al stack de tokens que ya tienen hijos este nodo
 
         root=temproot;
 
