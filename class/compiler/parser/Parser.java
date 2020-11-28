@@ -133,8 +133,9 @@ public class Parser {
         //ACTIONS TABLE ARRAYS
         String [] inputSymbols = {"class","program","{","}","$","[","]","(",")",",",";","!","type","void",
                 "if", "else","for","return","break","continue","assignation","callout","operator",
-                "literal","id","string_literal","Program","field_decl","method_decl","block","var_decl","statement",
-                "method_call","method_name","location","expr","callout_arg"};
+                "literal","id","string_literal","main","field_decl_list","method_decl_list","field_decl",
+                "id_list","method_decl","method_arg_list","method_arg","block","var_list","statement_list",
+                "statement","location","expr","method_call","expr_list","callout_arg_list","callout_arg"};
 
         String[][] actionsT = {
                 {"shift 2","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","goto 1","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error","error"},
